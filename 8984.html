@@ -20,26 +20,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="原来你也玩原神！😚🤗">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ekaterina の Blog">
-<meta property="og:url" content="http://example.com/index.html">
+    <meta name="description" content="本文所有操作默认使用最新windows系统，拥有Windows Terminal。（当然纯Ubuntu也能用就对了） 注意本文的&quot;~&quot;默认指\wsl.localhost。 WSL终端访问Windows文件需要在路径前面加&#x2F;mnt，且根目录小写，不加&quot;:&quot;。如cd &#x2F;mnt&#x2F;e&#x2F;Software。 WSL中可以正常使用git命令。 踩雷： 1.把nvim之外的语句粘贴进nvim需要用c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于WSL的NeoVim安装流程">
+<meta property="og:url" content="http://example.com/8984.html">
 <meta property="og:site_name" content="Ekaterina の Blog">
-<meta property="og:description" content="原来你也玩原神！😚🤗">
+<meta property="og:description" content="本文所有操作默认使用最新windows系统，拥有Windows Terminal。（当然纯Ubuntu也能用就对了） 注意本文的&quot;~&quot;默认指\wsl.localhost。 WSL终端访问Windows文件需要在路径前面加&#x2F;mnt，且根目录小写，不加&quot;:&quot;。如cd &#x2F;mnt&#x2F;e&#x2F;Software。 WSL中可以正常使用git命令。 踩雷： 1.把nvim之外的语句粘贴进nvim需要用c">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-27T06:12:11.000Z">
+<meta property="article:modified_time" content="2022-08-27T06:13:36.877Z">
 <meta property="article:author" content="Ekaterina">
-<meta property="article:tag" content="かわいい">
+<meta property="article:tag" content="Vim">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/8984.html">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/8984.html","path":"8984.html","title":"基于WSL的NeoVim安装流程"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Ekaterina の Blog</title>
+<title>基于WSL的NeoVim安装流程 | Ekaterina の Blog</title>
   
 
 
@@ -70,7 +72,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Ekaterina の Blog</h1>
+      <p class="site-title">Ekaterina の Blog</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Ekaterina の Blog</p>
@@ -103,7 +105,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -116,6 +118,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">0.前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85wsl"><span class="nav-number">2.</span> <span class="nav-text">1.安装WSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85git%E5%92%8Ccurl"><span class="nav-number">3.</span> <span class="nav-text">2.安装Git和Curl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85neovim"><span class="nav-number">4.</span> <span class="nav-text">3.安装NeoVim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDvim-plug"><span class="nav-number">5.</span> <span class="nav-text">4.下载Vim-Plug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%9F%BA%E4%BA%8E%E6%8F%92%E4%BB%B6%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">5.不基于插件的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">7.</span> <span class="nav-text">6.插件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90"><span class="nav-number">8.</span> <span class="nav-text">7.插件推荐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-airline-vim-airline-themes"><span class="nav-number">8.1.</span> <span class="nav-text">vim-airline &amp;
+vim-airline-themes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rainbow"><span class="nav-number">8.2.</span> <span class="nav-text">rainbow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ranger"><span class="nav-number">8.3.</span> <span class="nav-text">ranger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-startify"><span class="nav-number">8.4.</span> <span class="nav-text">vim-startify</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#supertab"><span class="nav-number">8.5.</span> <span class="nav-text">supertab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tabular"><span class="nav-number">8.6.</span> <span class="nav-text">tabular</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%B3%95%E6%89%93%E9%80%9A%E7%B3%BB%E7%BB%9F%E5%89%AA%E8%B4%B4%E6%9D%BF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">8.无法打通系统剪贴板解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Ccc"><span class="nav-number">10.</span> <span class="nav-text">9.编译运行C&#x2F;C++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E5%88%A0%E9%99%A4%E4%B8%8E%E6%9B%B4%E6%96%B0"><span class="nav-number">11.</span> <span class="nav-text">10.插件删除与更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#neovim%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">12.</span> <span class="nav-text">11.NeoVim的基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">13.</span> <span class="nav-text">12.参考资料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -169,16 +173,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/8984.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -192,13 +197,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ekaterina の Blog">
+      <meta itemprop="name" content="基于WSL的NeoVim安装流程 | Ekaterina の Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/8984.html" class="post-title-link" itemprop="url">基于WSL的NeoVim安装流程</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          基于WSL的NeoVim安装流程
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -246,7 +251,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>本文所有操作默认使用最新windows系统，拥有Windows
+        <p>本文所有操作默认使用最新windows系统，拥有Windows
 Terminal。（当然纯Ubuntu也能用就对了）</p>
 <p>注意本文的"~"默认指\wsl.localhost。</p>
 <p>WSL终端访问Windows文件需要在路径前面加/mnt，且根目录小写，不加":"。如cd
@@ -377,7 +382,6 @@ target="_blank" rel="noopener" href="https://www.sunzhongwei.com/wsl-vim-of-copy
 <p>https://zhuanlan.zhihu.com/p/434729349</p>
 <p>https://blog.csdn.net/qq_41829594/article/details/122408706</p>
 
-      
     </div>
 
     
@@ -385,110 +389,25 @@ target="_blank" rel="noopener" href="https://www.sunzhongwei.com/wsl-vim-of-copy
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/Vim/" rel="tag"># Vim</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/9117.html" rel="prev" title="如何申请github学生包 & 如何申请Jetbrains学生包">
+                  <i class="fa fa-chevron-left"></i> 如何申请github学生包 & 如何申请Jetbrains学生包
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/9117.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://pic.stackoverflow.wiki/uploadImages/171/117/190/209/2022/08/27/11/48/0cb2769b-56ab-44ea-8be6-0b83a4a02d06.jpg">
-      <meta itemprop="name" content="Ekaterina">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ekaterina の Blog">
-      <meta itemprop="description" content="原来你也玩原神！😚🤗">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Ekaterina の Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/9117.html" class="post-title-link" itemprop="url">如何申请github学生包 & 如何申请Jetbrains学生包</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-08-27 14:06:48 / 修改时间：14:11:27" itemprop="dateCreated datePublished" datetime="2022-08-27T14:06:48+08:00">2022-08-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E4%B9%B1%E6%90%9E/" itemprop="url" rel="index"><span itemprop="name">乱搞</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>282</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>github申请学生包：https://blog.csdn.net/qq_32146369/article/details/105438429</p>
-<p>​
-https://education.github.com/discount_requests/student_application</p>
-<p>​ 这里右下角显示是否成功。</p>
-<p>jetbrains用github申请学生包：https://blog.csdn.net/weixin_44820183/article/details/106517921</p>
-<p>Clion配置：https://zhuanlan.zhihu.com/p/412859650</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
