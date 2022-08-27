@@ -131,7 +131,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -142,7 +142,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -190,10 +190,10 @@
       
       <div class="post-body"><div class="tag-cloud">
   <div class="tag-cloud-title">
-    目前共计 1 个标签
+    目前共计 2 个标签
   </div>
   <div class="tag-cloud-tags">
-    <a href="/tags/test/" style="font-size: 12px;" class="tag-cloud-0">test</a>
+    <a href="/tags/Github/" style="font-size: 12px;" class="tag-cloud-0">Github</a> <a href="/tags/Jetbrains/" style="font-size: 12px;" class="tag-cloud-0">Jetbrains</a>
   </div>
 </div>
 
@@ -207,7 +207,22 @@
     
 
 
-</div>
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  var gitment = new Gitment({
+    // 根据文章标题设置唯一评论id
+    id: '',
+    owner: 'EkaterinaQwQ',
+    repo: 'ekaterinaqwqhttps://ekaterinaqwq.github.io/',
+    oauth: {
+      client_id: '38632c9a8b2a07eefdf1',
+      client_secret: 'afc8c8e7967ab446535eb9f83ff2e47a9b7a4c3e',
+    },
+  })
+  gitment.render('comments')
+</script></div>
   </main>
 
   <footer class="footer">
